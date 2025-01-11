@@ -123,9 +123,31 @@ let faturamento: FaturamentoTotal[] = [
 ];
 
 function menorValor(faturamento: FaturamentoTotal[]) {
-  const valores = faturamento.filter((dia) => dia.valor > 0).map((dia) => dia.valor)
-  console.log(valores)
-  return Math.min(...valores)
+  const valores = faturamento
+    .filter(dia => dia.valor > 0)
+    .map(dia => dia.valor);
+  return Math.min(...valores);
 }
 
-console.log(menorValor(faturamento))
+function maiorValor(faturamento: FaturamentoTotal[]) {
+  const valores = faturamento
+    .filter(dia => dia.valor > 0)
+    .map(dia => dia.valor);
+  return Math.max(...valores);
+}
+
+function diasMediaMensal(faturamento: FaturamentoTotal[]) {
+  const diasUteis = faturamento.filter(dia => dia.valor > 0);
+
+  const somafaturamento = diasUteis.reduce((acc, dia) => acc + dia.valor, 0);
+  const mediaMensal = somafaturamento / diasUteis.length;
+
+  const diasAcimaDaMedia = diasUteis.filter(
+    dias => dias.valor > mediaMensal
+  ).length;
+  return diasAcimaDaMedia;
+}
+
+// console.log(diasMediaMensal(faturamento));
+// console.log(menorValor(faturamento));
+// console.log(maiorValor(faturamento));
